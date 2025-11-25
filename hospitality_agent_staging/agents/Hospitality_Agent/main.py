@@ -44,9 +44,9 @@ initial_state = {
 #   We keep it async because ADK requires "await" calls.
 # ================================================================
 
-async def _async_setup():
+async def _async_setup(user_id: str):
     APP_NAME = "Hospitality Agent"
-    USER_ID = "Ankit Kamat"
+    USER_ID = user_id
 
     session_service = DatabaseSessionService(db_url=DB_URL)
 
@@ -91,8 +91,9 @@ async def _async_setup():
 #
 #    This function runs ONLY ONCE when Streamlit imports main.py.
 # ================================================================
-def get_runner_and_session():
-    return asyncio.run(_async_setup())
+def get_runner_and_session(user_id):
+    #user_id = ask_input("Enter your User ID", default=None)
+    return asyncio.run(_async_setup(user_id))
 
 
 # ================================================================
@@ -147,9 +148,10 @@ def ask_input(prompt: str, default: str | None = None) -> str:
 # This helps you run the agent in console without Streamlit.
 # ================================================================
 if __name__ == "__main__":
-    runner, session_service, APP_NAME, USER_ID, SESSION_ID = get_runner_and_session()
+    user_id = ask_input("Enter your User ID", default=None)
+    runner, session_service, APP_NAME, USER_ID, SESSION_ID = get_runner_and_session(user_id)
 
-    print("\n🤖 Hospitality Agent Ready! Type 'exit' to quit.\n")
+    print(f"\nHospitality Agent Ready!User: {USER_ID}. Type 'exit' to quit.\n")
 
     while True:
         text = input("You: ").strip()
