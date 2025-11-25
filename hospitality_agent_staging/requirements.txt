@@ -8,3 +8,4 @@ deprecated
 openpyxl
 aiosqlite
 greenlet
+streamlit

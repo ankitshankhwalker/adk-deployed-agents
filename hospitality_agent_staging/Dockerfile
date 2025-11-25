@@ -25,13 +25,13 @@ ENV PATH="/home/myuser/.local/bin:${PATH}"
 # Set the environment variable for google cloud runtime
 ENV GOOGLE_GENAI_USE_VERTEXAI=0
 
+# Cloud Run runtime port
+ENV PORT=8080
+
 # Expose the port that the application will run on
 EXPOSE 8080
 
-# The command to run the ADK web server
-# This scans the '/aap/agents' directory for discoverable agents
-# matching the pattern in the example
-# For deploying on cloud run, not setting up port 8080 as default but taking it automatically
-CMD ["python", "/app/agents/Hospitality_Agent/main.py"]
+# Run the Streamlit app (instead of python main.py)
+CMD ["streamlit", "run", "agents/Hospitality_Agent/app.py", "--server.port=8080", "--server.address=0.0.0.0"]
 
 
