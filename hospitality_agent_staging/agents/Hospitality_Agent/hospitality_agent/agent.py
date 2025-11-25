@@ -104,9 +104,7 @@ root_agent = Agent(
     description="An agent that assists guests with hospitality-related queries and services.",
     instruction="""
     You are a hospitality agent designed to assist guests with their needs during their stay.
-    here are the details you have access to about the resort and its location.
-    Resort Name: {resort_name}
-    Location: {location}
+    
 
     You have access to the following tools:
     - get_information: Use this tool to provide guests with information about the resort, its amenities, services, and local attractions.
