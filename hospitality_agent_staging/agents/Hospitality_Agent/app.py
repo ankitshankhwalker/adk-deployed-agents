@@ -8,13 +8,22 @@ st.set_page_config(page_title="Resort Ranger Agent", page_icon="🏨", layout="c
 st.title(" 🏨 Resort Ranger")
 
 # -------------------------------------------------------
+# USER ID INPUT (required for session loading)
+# -------------------------------------------------------
+st.sidebar.header("User Settings")
+USER_ID_INPUT = st.sidebar.text_input("Enter User ID", value="")
+
+# -------------------------------------------------------
 # 1. Initialize backend ONCE
 # -------------------------------------------------------
 @st.cache_resource
-def init_backend():
-    return get_runner_and_session()
+def init_backend(user_id:str):
+    return get_runner_and_session(user_id)
 
-runner, session_service, APP_NAME, USER_ID, SESSION_ID = init_backend()
+if not USER_ID_INPUT:
+    st.warning("Please enter a User ID in the sidebar to start.")
+    st.stop()
+runner, session_service, APP_NAME, USER_ID, SESSION_ID = init_backend(USER_ID_INPUT)
 
 # -------------------------------------------------------
 # 2. Initialize chat history
